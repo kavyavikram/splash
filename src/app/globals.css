@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+/* Splash design tokens, taken from reference/prototype.html */
+@theme {
+  --font-sans: var(--font-dm-sans), system-ui, sans-serif;
+
+  --color-primary: #0b63b8;
+  --color-primary-dark: #0b4f94;
+  --color-teal: #10a5b5;
+  --color-teal-dark: #0e8fa3;
+  --color-navy: #0b2540;
+  --color-muted: #4a6178;
+  --color-line: #dce9f2;
+  --color-line-soft: #eaf2f8;
+  --color-field: #b9d3e6;
+  --color-sky: #e3f1fb;
+  --color-mint: #e3f4f7;
+  --color-mint-ink: #0a5a6b;
+  --color-ice: #f1f9fc;
+}
+
+body {
+  background: #fff;
+  color: var(--color-navy);
+}
+
+/* A utility (not a component class) so .card-link can @apply it */
+@utility card {
+  @apply rounded-[18px] border border-line bg-white p-5 shadow-[0_2px_12px_rgba(11,99,184,0.08)];
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex min-h-11 cursor-pointer items-center justify-center rounded-xl bg-primary px-5 py-2.5 font-bold text-white hover:bg-primary-dark focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-primary;
+  }
+  .btn-outline {
+    @apply inline-flex min-h-11 cursor-pointer items-center justify-center rounded-xl border-[1.5px] border-primary bg-white px-5 py-2.5 font-bold text-primary hover:bg-sky focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-primary;
+  }
+  .btn-white {
+    @apply inline-flex min-h-11 cursor-pointer items-center justify-center rounded-xl bg-white px-5 py-2.5 font-bold text-primary-dark hover:bg-sky focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-white;
+  }
+  .card-link {
+    @apply card block w-full text-left hover:border-primary focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-primary;
+  }
+  .chip {
+    @apply mr-1 mb-1 inline-block rounded-full bg-mint px-3 py-1 text-[13px] text-mint-ink;
+  }
+  .pill {
+    @apply inline-flex min-h-11 cursor-pointer items-center rounded-full border-[1.5px] border-field bg-white px-4 py-2 text-navy hover:border-primary focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-primary;
+  }
+  .pill-on {
+    @apply border-primary bg-primary text-white hover:border-primary;
+  }
+  .field {
+    @apply min-h-11 w-full rounded-xl border-[1.5px] border-field px-4 py-3 focus-visible:border-primary focus-visible:outline-2 focus-visible:outline-primary;
+  }
+  .muted {
+    @apply text-sm text-muted;
+  }
+  /* White text needs the darker teal end for contrast */
+  .hero {
+    @apply rounded-[22px] bg-linear-to-r from-primary to-teal-dark p-7 text-white;
+  }
+}

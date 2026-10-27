@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Splash prototype</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:"DM Sans",system-ui,sans-serif;background:#fff;color:#0B2540}
+*{box-sizing:border-box}
+button,input{font:inherit}
+.btn{border:0;background:#0B63B8;color:#fff;padding:10px 20px;border-radius:12px;font-weight:700;cursor:pointer;min-height:44px}
+.btn2{border:1.5px solid #0B63B8;background:#fff;color:#0B63B8;padding:10px 20px;border-radius:12px;font-weight:700;cursor:pointer;min-height:44px}
+.btnw{border:0;background:#fff;color:#0B4F94;padding:10px 20px;border-radius:12px;font-weight:700;cursor:pointer;min-height:44px}
+.card{background:#fff;border:1px solid #DCE9F2;border-radius:18px;padding:20px;box-shadow:0 2px 12px rgba(11,99,184,.08)}
+.click{display:block;width:100%;text-align:left;color:inherit;cursor:pointer}
+.click:hover{border-color:#0B63B8}
+.chip{display:inline-block;background:#E3F4F7;color:#0A5A6B;border-radius:99px;padding:4px 12px;font-size:13px;margin:2px 4px 2px 0}
+.nav{display:block;width:100%;text-align:left;border:0;background:none;color:#0B2540;padding:12px 14px;border-radius:12px;font-weight:500;cursor:pointer;min-height:44px}
+.nav.on{background:#E3F1FB;color:#0B4F94;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.pill{border:1.5px solid #B9D3E6;background:#fff;color:#0B2540;padding:8px 16px;border-radius:99px;cursor:pointer;min-height:44px}
+.pill.on{background:#0B63B8;color:#fff;border-color:#0B63B8}
+h1,h2,h3,p{margin:0}
+h2{font-size:18px;margin-bottom:12px}
+.mut{color:#4A6178;font-size:14px}
+.in{width:100%;border:1.5px solid #B9D3E6;border-radius:12px;padding:12px 16px;min-height:44px}
+.g7{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}.cell{min-height:84px;border:1px solid #DCE9F2;border-radius:10px;padding:6px}.cell.off{border-color:transparent}.cb{display:block;width:100%;margin-top:4px;border:0;border-radius:8px;background:#0B63B8;color:#fff;padding:6px 2px;font-size:12px;cursor:pointer;min-height:36px}
+.bubble{padding:10px 14px;border-radius:14px;margin-bottom:8px;font-size:14px;max-width:85%}
+.bot{background:#E3F4F7}.me{background:#0B63B8;color:#fff;margin-left:auto}
+</style>
+</helmet>
+<div style="min-height:900px;width:100%">
+
+<sc-if value="{{noRole}}" hint-placeholder-val="{{true}}">
+<div style="min-height:900px;background:linear-gradient(135deg,#0B63B8,#10A5B5);display:flex;align-items:center;justify-content:center;padding:24px">
+<div style="background:#fff;border-radius:28px;max-width:860px;width:100%;padding:40px 32px;text-align:center;box-shadow:0 20px 50px rgba(5,40,80,.25)">
+<svg width="56" height="56" viewBox="0 0 56 56" role="img" aria-label="Splash logo"><defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0B63B8"></stop><stop offset="1" stop-color="#10A5B5"></stop></linearGradient></defs><circle cx="28" cy="28" r="28" fill="url(#g1)"></circle><path d="M10 25c4-5 7-5 9 0s6 5 9 0 6-5 9 0 6 5 9 0M10 36c4-5 7-5 9 0s6 5 9 0 6-5 9 0 6 5 9 0" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"></path></svg>
+<p style="font-weight:700;color:#0B63B8;margin-top:8px">Splash</p>
+<h1 style="font-size:36px;margin:12px 0">Welcome to Splash</h1>
+<p class="mut" style="max-width:560px;margin:0 auto 28px;font-size:16px">Splash helps the SNAPkids community stay connected: lessons, resources, and conversations between instructors, swimmers, and families.</p>
+<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+<button class="card click" onClick="{{pickInst}}" style="padding:28px">
+<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0B63B8" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 4-6 8-6s8 2 8 6"></path></svg>
+<h3 style="font-size:22px;margin:12px 0 6px">Instructor</h3>
+<p class="mut" style="margin-bottom:16px">See your lessons and swimmers, browse the directory, and find teaching resources.</p>
+<span class="btn" style="display:inline-block;padding-top:12px">Continue as Instructor</span>
+</button>
+<button class="card click" onClick="{{pickFam}}" style="padding:28px">
+<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0E8FA3" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="3"></circle><circle cx="17" cy="10" r="2.5"></circle><path d="M2 20c0-3.5 3-5 6-5s6 1.5 6 5M14 20c0-2.5 2-4 4-4s4 1.5 4 4"></path></svg>
+<h3 style="font-size:22px;margin:12px 0 6px">Swimmer &amp; Family</h3>
+<p class="mut" style="margin-bottom:16px">Check upcoming lessons, meet your instructor, and explore helpful resources.</p>
+<span class="btn" style="display:inline-block;padding-top:12px">Continue as Family</span>
+</button>
+</div>
+<p class="mut" style="margin-top:24px;font-size:13px">Demo prototype: no login needed. All names and data are fictional.</p>
+</div></div>
+</sc-if>
+
+<sc-if value="{{shell}}" hint-placeholder-val="{{false}}">
+<div>
+<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:12px 24px;background:linear-gradient(90deg,#0B63B8,#0E8FA3);color:#fff">
+<div style="display:flex;align-items:center;gap:10px"><svg width="32" height="32" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="28" fill="#fff"></circle><path d="M10 25c4-5 7-5 9 0s6 5 9 0 6-5 9 0 6 5 9 0M10 36c4-5 7-5 9 0s6 5 9 0 6-5 9 0 6 5 9 0" stroke="#0B63B8" stroke-width="3" fill="none" stroke-linecap="round"></path></svg><b style="font-size:20px">Splash</b><span style="background:rgba(255,255,255,.22);border-radius:99px;padding:4px 12px;font-size:13px">{{roleLabel}}</span></div>
+<button class="btnw" onClick="{{switchRole}}">Switch role</button>
+</div>
+<div style="display:flex;flex-wrap:wrap">
+<div style="flex:0 0 220px;padding:16px;border-right:1px solid #DCE9F2;min-width:0">
+<sc-for list="{{nav}}" as="n" hint-placeholder-count="5"><button class="{{n.cls}}" onClick="{{n.go}}">{{n.label}}</button></sc-for>
+</div>
+<div style="flex:999 1 560px;min-width:0;padding:24px;display:flex;flex-direction:column;gap:20px">
+<div class="card" style="padding:14px 18px"><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><b>Location:</b><sc-for list="{{locs}}" as="l" hint-placeholder-count="3"><button class="{{l.cls}}" onClick="{{l.pick}}">{{l.label}}</button></sc-for></div><p class="mut" style="margin-top:8px">{{locInfo}}</p></div>
+
+<sc-if value="{{instDash}}" hint-placeholder-val="{{false}}">
+<div style="background:linear-gradient(120deg,#0B63B8,#10A5B5);color:#fff;border-radius:22px;padding:28px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+<div><h1 style="font-size:28px">{{welcome}}</h1><p style="margin-top:6px">{{welcomeSub}}</p></div>
+<button class="btnw" style="font-size:16px;padding:14px 26px" onClick="{{browseSwim}}">Browse swimmer directory</button>
+</div>
+<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+<div class="card"><h2>Upcoming lessons</h2>
+<sc-for list="{{lessons}}" as="l" hint-placeholder-count="3"><div style="padding:10px 0;border-top:1px solid #EAF2F8"><b>{{l.d}} · {{l.t}}</b><p class="mut">{{l.who}} · {{l.where}}</p></div></sc-for></div>
+<div class="card"><h2>Swimmers at this location</h2>
+<sc-for list="{{assigned}}" as="s" hint-placeholder-count="3"><button class="nav" style="border-top:1px solid #EAF2F8;border-radius:0" onClick="{{s.open}}"><b>{{s.name}}</b><span class="mut" style="display:block">{{s.sub}}</span></button></sc-for></div>
+<div class="card"><h2>Messages</h2>
+<sc-for list="{{msgs}}" as="m" hint-placeholder-count="3"><div style="padding:8px 0;border-top:1px solid #EAF2F8"><b>{{m.from}}</b><p class="mut">{{m.prev}}</p></div></sc-for>
+<button class="btn2" style="margin-top:10px" onClick="{{toMsg}}">Open messages</button></div>
+<div class="card" style="background:#E3F4F7"><h2>Adaptive swimming resources</h2><p class="mut" style="margin-bottom:14px">Techniques, games, equipment ideas, and water safety notes.</p><button class="btn" onClick="{{toRes}}">Open resource hub</button></div>
+</div>
+</sc-if>
+
+<sc-if value="{{famDash}}" hint-placeholder-val="{{false}}">
+<div style="background:linear-gradient(120deg,#0B63B8,#10A5B5);color:#fff;border-radius:22px;padding:28px"><h1 style="font-size:28px">{{famHi}}</h1><p style="margin-top:6px">Here is what is coming up in the pool.</p></div>
+<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+<div class="card"><h2>Next lesson</h2><p style="font-size:22px;font-weight:700">{{nextL.d}}</p><p>{{nextL.t}} · {{nextL.where}}</p><p class="mut" style="margin:6px 0 14px">Bring: towel, goggles, swim shoes (sample note).</p><button class="btn2" onClick="{{toCal}}">View calendar</button></div>
+<div class="card"><h2>Your instructor</h2><p style="font-weight:700;font-size:18px">{{famIns.name}}</p><p class="mut" style="margin:4px 0 14px">{{famIns.sub}}</p><button class="btn2" onClick="{{viewInst}}">View profile</button></div>
+<div class="card"><h2>Recent messages</h2>
+<sc-for list="{{msgs}}" as="m" hint-placeholder-count="2"><div style="padding:8px 0;border-top:1px solid #EAF2F8"><b>{{m.from}}</b><p class="mut">{{m.prev}}</p></div></sc-for>
+<button class="btn2" style="margin-top:10px" onClick="{{toMsg}}">Open messages</button></div>
+<div class="card" style="background:#E3F4F7"><h2>Resource hub</h2><p class="mut" style="margin-bottom:14px">Water safety tips and fun practice ideas for home.</p><button class="btn" onClick="{{toRes}}">Open resource hub</button></div>
+</div>
+<button class="btn" style="align-self:flex-start" onClick="{{openChat}}">Need help? Ask the Splash helper</button>
+</sc-if>
+
+<sc-if value="{{vDir}}" hint-placeholder-val="{{false}}">
+<sc-if value="{{dirList}}" hint-placeholder-val="{{false}}">
+<div><h1 style="font-size:28px">{{dirTitle}}</h1><p class="mut" style="margin-top:4px">Fictional sample profiles for demo purposes only.</p></div>
+<sc-if value="{{showTabs}}" hint-placeholder-val="{{false}}"><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="{{tabI}}" onClick="{{setInst}}">Instructors</button><button class="{{tabS}}" onClick="{{setSwim}}">Swimmers</button></div></sc-if>
+<input class="in" placeholder="Search by name, goal, or interest" aria-label="Search directory" value="{{q}}" onChange="{{setQ}}">
+<sc-if value="{{noDir}}" hint-placeholder-val="{{false}}"><div class="card" style="text-align:center"><b>No profiles match your search.</b><p class="mut">Try a different word or clear the search box.</p></div></sc-if>
+<div class="grid"><sc-for list="{{dirItems}}" as="p" hint-placeholder-count="4"><button class="card click" onClick="{{p.open}}"><b style="font-size:18px">{{p.name}}</b><p class="mut" style="margin:4px 0 10px">{{p.sub}}</p><div><sc-for list="{{p.chips}}" as="c" hint-placeholder-count="2"><span class="chip">{{c}}</span></sc-for></div></button></sc-for></div>
+</sc-if>
+<sc-if value="{{dirDetail}}" hint-placeholder-val="{{false}}">
+<button class="btn2" style="align-self:flex-start" onClick="{{backDir}}">Back to directory</button>
+<div class="card" style="max-width:720px"><h1 style="font-size:28px">{{det.name}}</h1><p class="mut" style="margin:4px 0 16px">{{det.sub}}</p>
+<sc-for list="{{det.rows}}" as="r" hint-placeholder-count="3"><div style="padding:12px 0;border-top:1px solid #EAF2F8"><b>{{r.k}}</b><p>{{r.v}}</p></div></sc-for>
+<p class="mut" style="margin-top:12px">Sample profile. No real personal or medical information.</p></div>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{vRes}}" hint-placeholder-val="{{false}}">
+<sc-if value="{{resList}}" hint-placeholder-val="{{false}}">
+<div><h1 style="font-size:28px">Adaptive Swimming Resource Hub</h1><p class="mut" style="margin-top:4px">Fictional example resources for the prototype.</p></div>
+<input class="in" placeholder="Search resources" aria-label="Search resources" value="{{rq}}" onChange="{{setRq}}">
+<div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{pills}}" as="c" hint-placeholder-count="5"><button class="{{c.cls}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for></div>
+<sc-if value="{{noRes}}" hint-placeholder-val="{{false}}"><div class="card" style="text-align:center"><b>No resources found.</b><p class="mut">Try another search or choose All.</p></div></sc-if>
+<div class="grid"><sc-for list="{{resItems}}" as="r" hint-placeholder-count="4"><button class="card click" onClick="{{r.open}}"><span class="chip">{{r.cat}}</span><b style="display:block;font-size:18px;margin:8px 0 4px">{{r.title}}</b><p class="mut">{{r.desc}}</p></button></sc-for></div>
+</sc-if>
+<sc-if value="{{resDetail}}" hint-placeholder-val="{{false}}">
+<button class="btn2" style="align-self:flex-start" onClick="{{backRes}}">Back to resources</button>
+<div class="card" style="max-width:720px"><span class="chip">{{rd.cat}}</span><h1 style="font-size:28px;margin:10px 0">{{rd.title}}</h1><p style="line-height:1.6">{{rd.body}}</p>
+<sc-if value="{{rd.hasLy}}" hint-placeholder-val="{{false}}"><div style="background:#F1F9FC;border-radius:14px;padding:16px;margin-top:14px;white-space:pre-line;line-height:1.7">{{rd.lyrics}}</div></sc-if>
+<h2 style="margin-top:18px">Tips</h2><sc-for list="{{rd.tips}}" as="t" hint-placeholder-count="2"><p style="padding:8px 0;border-top:1px solid #EAF2F8">{{t}}</p></sc-for>
+<p class="mut" style="margin-top:12px">Fictional example content, not official SNAPkids guidance.</p></div>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{vMsg}}" hint-placeholder-val="{{false}}">
+<div><h1 style="font-size:28px">Messages</h1><p class="mut" style="margin-top:4px">Read-only demo. Replies are not sent.</p></div>
+<div style="display:flex;flex-wrap:wrap;gap:16px">
+<div style="flex:1 1 260px;min-width:0"><sc-for list="{{msgList}}" as="m" hint-placeholder-count="3"><button class="{{m.cls}}" onClick="{{m.pick}}"><b>{{m.from}}</b><span class="mut" style="display:block">{{m.subj}}</span></button></sc-for></div>
+<div class="card" style="flex:2 1 320px;min-width:0"><h2>{{curMsg.subj}}</h2><p class="mut" style="margin-bottom:12px">From {{curMsg.from}}</p><p style="line-height:1.6">{{curMsg.body}}</p></div>
+</div>
+</sc-if>
+
+<sc-if value="{{vCal}}" hint-placeholder-val="{{false}}">
+<sc-if value="{{calGrid}}" hint-placeholder-val="{{false}}">
+<div><h1 style="font-size:28px">Calendar</h1><p class="mut" style="margin-top:4px">Sample class schedule for {{loc}}. Click a class to see who is attending. Nothing is saved.</p></div>
+<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><button class="btn2" onClick="{{prevM}}">Previous</button><b style="font-size:20px;min-width:160px;text-align:center">{{monthLabel}}</b><button class="btn2" onClick="{{nextM}}">Next</button></div>
+<div style="overflow-x:auto"><div style="min-width:640px"><div class="g7"><sc-for list="{{dn}}" as="d" hint-placeholder-count="7"><b class="mut" style="padding:4px 6px">{{d}}</b></sc-for></div>
+<div class="g7" style="margin-top:6px"><sc-for list="{{cells}}" as="c" hint-placeholder-count="7"><div class="{{c.cls}}"><span class="mut">{{c.n}}</span><sc-for list="{{c.cl}}" as="k" hint-placeholder-count="1"><button class="cb" onClick="{{k.pick}}">{{k.s}}</button></sc-for></div></sc-for></div></div></div>
+</sc-if>
+<sc-if value="{{calDet}}" hint-placeholder-val="{{false}}">
+<button class="btn2" style="align-self:flex-start" onClick="{{backCal}}">Back to calendar</button>
+<div class="card"><h1 style="font-size:26px">{{cdet.title}}</h1><p class="mut" style="margin:4px 0 10px">{{cdet.place}}</p><p><b>Instructors assigned:</b> {{cdet.insts}}</p><p class="mut">{{cdet.n}} swimmers attending</p></div>
+<div class="grid"><sc-for list="{{cdet.grp}}" as="g" hint-placeholder-count="2"><div class="card"><h2>{{g.title}}</h2><sc-if value="{{g.empty}}" hint-placeholder-val="{{false}}"><p class="mut">No swimmers assigned to this pool.</p></sc-if><sc-for list="{{g.items}}" as="w" hint-placeholder-count="2"><div style="padding:8px 0;border-top:1px solid #EAF2F8"><b>{{w.name}}</b><p class="mut">{{w.line}}</p></div></sc-for></div></sc-for></div>
+<p class="mut">Sample pairings. Pool assignment is based on swimmer level, and each swimmer works with 1-2 instructors.</p>
+</sc-if>
+</sc-if>
+
+</div></div>
+
+<div style="position:fixed;right:20px;bottom:20px;z-index:50;display:flex;flex-direction:column;align-items:flex-end;gap:10px">
+<sc-if value="{{chat}}" hint-placeholder-val="{{false}}">
+<div class="card" style="width:min(340px,calc(100vw - 40px));padding:16px;box-shadow:0 10px 30px rgba(5,40,80,.25)">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><b>Splash helper</b><button class="pill" onClick="{{closeChat}}" aria-label="Close chat">Close</button></div>
+<div style="max-height:220px;overflow-y:auto"><sc-for list="{{log}}" as="b" hint-placeholder-count="2"><div class="{{b.cls}}">{{b.t}}</div></sc-for></div>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"><sc-for list="{{faqs}}" as="f" hint-placeholder-count="3"><button class="pill" style="font-size:13px;padding:6px 12px" onClick="{{f.ask}}">{{f.q}}</button></sc-for></div>
+<p class="mut" style="font-size:12px;margin-top:8px">Preset answers only (prototype).</p></div>
+</sc-if>
+<button class="btn" style="border-radius:99px;padding:12px 22px;box-shadow:0 6px 18px rgba(11,99,184,.4)" onClick="{{toggleChat}}">{{chatBtn}}</button>
+</div>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":900}}'>
+const LOC={"Berkeley":{short:"Downtown Berkeley YMCA",addr:"Downtown Berkeley YMCA, 2001 Allston Way",note:"Warm water pool with chair lift"},"Palo Alto":{short:"Palo Alto Family YMCA",addr:"Palo Alto Family YMCA, 3412 Ross Road",note:"Warmer instructional pool and cooler lap pool"},"Albany":{short:"Albany Aquatic Center",addr:"Albany Aquatic Center, 1311 Portland Ave",note:"Warm water pool with chair lift"}};
+const SLOTS={"Berkeley":[{d:5,t:"5:30 - 6:30 PM",s:"5:30 PM"},{d:0,t:"11:30 AM - 12:30 PM",s:"11:30 AM"},{d:0,t:"12:30 - 1:30 PM",s:"12:30 PM"}],"Palo Alto":[{d:6,t:"12:45 - 1:25 PM",s:"12:45 PM"},{d:6,t:"1:30 - 2:10 PM",s:"1:30 PM"},{d:6,t:"2:15 - 2:55 PM",s:"2:15 PM"},{d:6,t:"3:00 - 3:40 PM",s:"3:00 PM"}],"Albany":[{d:0,t:"9:15 - 9:55 AM",s:"9:15 AM"},{d:0,t:"10:00 - 10:40 AM",s:"10:00 AM"}]};
+const DAYS=["Sundays","Mondays","Tuesdays","Wednesdays","Thursdays","Fridays","Saturdays"],MON=["January","February","March","April","May","June","July","August","September","October","November","December"];
+const dn=DAYS.map(d=>d.slice(0,3)),fmt=(dt)=>dn[dt.getDay()]+", "+MON[dt.getMonth()].slice(0,3)+" "+dt.getDate();
+const I=(id,name,loc,y,ints,av)=>({id,name,loc,sub:loc+" · "+y+" years of experience",chips:ints.split(","),rows:[{k:"Experience",v:y+" years with adaptive aquatics"},{k:"Teaching interests",v:ints.split(",").join(", ")},{k:"Availability",v:av},{k:"Location",v:LOC[loc].short}]});
+const INST=[I("i1","Maya Chen","Berkeley",6,"Autism support,Water confidence","Fridays and Sundays"),I("i2","Daniel Okafor","Berkeley",10,"Mobility support,Floatation devices","Fridays and Sundays"),I("i3","Priya Raman","Palo Alto",3,"Sensory needs,Games and songs","Saturdays"),I("i4","Sam Torres","Palo Alto",8,"Stroke basics,Water safety","Saturdays"),I("i5","Lena Ortiz","Albany",5,"Early swimmers,Communication cards","Sundays"),I("i6","Marcus Bell","Albany",7,"Teen swimmers,Independence","Sundays")];
+const W=(id,name,loc,sl,pool,ins,cond,nv,care,yrs,focus,past)=>({id,name,loc,sl,pool,ins,sub:loc+" · "+yrs+(yrs>1?" years":" year")+" with SNAPkids",chips:[cond,pool],rows:[{k:"Condition",v:cond},{k:"Nonverbal",v:nv},{k:"Specific considerations",v:care},{k:"Years with SNAPkids",v:""+yrs},{k:"Focus for this session",v:focus},{k:"Past instructors",v:past},{k:"Pool assignment",v:pool+" (based on swimmer level)"},{k:"Current instructors",v:ins.map(i=>INST.find(x=>x.id===i).name).join(" & ")},{k:"Class",v:DAYS[SLOTS[loc][sl].d]+", "+SLOTS[loc][sl].t}]});
+const SW=[W("s1","Jordan R.","Berkeley",0,"Instructional pool",["i1"],"Autism","Yes, uses picture cards","Show picture cards before entering the water; quiet lane preferred.",3,"Independent back float","Daniel Okafor, Sam Torres"),
+W("s2","Ava M.","Berkeley",0,"Instructional pool",["i1","i2"],"Cerebral palsy","No","Needs seated transfer with the chair lift; tires after 30 minutes.",5,"Steady kicking with a board","Priya Raman"),
+W("s3","Leo P.","Berkeley",1,"Lap pool",["i2"],"Developmental delay","No, uses short phrases","Give a two-minute warning before activity changes.",2,"Freestyle arm pattern","Maya Chen"),
+W("s4","Nia W.","Palo Alto",0,"Lap pool",["i4"],"Down syndrome","No","Clear, short verbal cues work best; loves high-fives.",4,"Breathing with side kicks","Priya Raman, Lena Ortiz"),
+W("s5","Eli K.","Palo Alto",1,"Instructional pool",["i3"],"Autism","Yes, uses a communication device","Keep sounds low and use the same entry routine each week.",1,"Comfort with face in water","None yet"),
+W("s6","Zoe T.","Palo Alto",2,"Instructional pool",["i3","i4"],"Muscular dystrophy","No","Conserve energy: rest breaks every 10 minutes, no overexertion.",6,"Gentle floating and range of motion","Daniel Okafor, Marcus Bell"),
+W("s10","Ruby H.","Berkeley",2,"Instructional pool",["i2"],"Spina bifida","No","Uses a seated transfer; check skin comfort after each lesson.",4,"Supported kicking on back","Maya Chen"),
+W("s11","Theo N.","Palo Alto",3,"Lap pool",["i4"],"Developmental delay","No","Likes a predictable routine; offer choices of two.",3,"Side breathing practice","Priya Raman"),
+W("s7","Mateo S.","Albany",0,"Instructional pool",["i5"],"Cerebral palsy","No","Support head and trunk during floats; prefers warm water time.",2,"Back float with support","Maya Chen"),
+W("s8","Hannah L.","Albany",1,"Lap pool",["i6"],"Developmental delay","No","Uses visual timers; praise effort over results.",7,"Backstroke arms","Sam Torres, Lena Ortiz"),
+W("s9","Omar D.","Albany",1,"Lap pool",["i6","i5"],"Autism","Yes, uses signs and gestures","Avoid sudden splashes; offer calm choices.",3,"Rhythmic kicking across the pool","Priya Raman")];
+const attend=(loc,i)=>SW.filter(w=>w.loc===loc&&w.sl===i);
+const classesOn=(loc,dt)=>SLOTS[loc].map((x,i)=>({...x,i})).filter(x=>x.d===dt.getDay());
+const nextC=(loc,fl)=>{const o=[];for(let k=0;k<30&&o.length<3;k++){const dt=new Date(2026,9,13+k);classesOn(loc,dt).forEach(x=>{if(!fl||fl(x))o.push({d:fmt(dt),t:x.t,who:attend(loc,x.i).length+" swimmers",where:LOC[loc].short})})}return o};
+const CATS=["Adaptive Teaching Techniques","Swimming Games & Activities","Adaptive Equipment & Devices","Water Safety"];
+const RES=[
+{id:"r1",cat:CATS[0],title:"Visual Lesson Schedules",desc:"Use picture cards to preview each lesson step.",body:"A visual schedule shows swimmers what will happen and in what order. Place cards on deck and let the swimmer move each card to a done box.",tips:["Keep it to 4 to 6 steps.","Reuse the same pictures every week."]},
+{id:"r2",cat:CATS[0],title:"Calm Entry Routines",desc:"A repeatable way to start the lesson in the water.",body:"A consistent entry routine lowers anxiety. Pair the same greeting, steps, and song each lesson so the start feels familiar.",tips:["Offer choices, like stairs or edge.","Praise each small step."]},
+{id:"r3",cat:CATS[1],title:"Bubble Band",desc:"A music game that builds breath control.",body:"Swimmers blow bubbles to match a rhythm the instructor taps. Start with slow beats and add faster ones as comfort grows.",tips:["Use a hum for hesitant swimmers.","Let swimmers lead a round."]},
+{id:"r4",cat:CATS[1],title:"Treasure Dive Lane",desc:"Gentle object retrieval at shallow depth.",body:"Scatter soft rings at knee or waist depth. Swimmers collect them and sort by color, practicing reach, balance, and movement.",tips:["Count rings out loud together.","Adjust depth to comfort."]},
+{id:"r5",cat:CATS[2],title:"Choosing Floatation Aids",desc:"Compare noodles, belts, and vests for support.",body:"Different aids give different support and freedom. Start with more support and reduce it gradually as skills build.",tips:["Check fit before each lesson.","Rotate aids to avoid dependence."]},
+{id:"r6",cat:CATS[2],title:"Pool Access Basics",desc:"Ideas for ramps, lifts, and transfer seating.",body:"Safe entry and exit shape the whole lesson. Review each facility's equipment and plan transfers before the swimmer arrives.",tips:["Practice transfers on dry land first.","Keep equipment within reach."]},
+{id:"r7",cat:CATS[3],title:"Pool Rules in Pictures",desc:"Simple illustrated safety rules for the deck.",body:"Pair each rule with a clear picture: walk, wait for the instructor, and stay in your lane. Review the rules at every lesson.",tips:["Use positive wording.","Post at pool entrance."]},
+{id:"r8",cat:CATS[3],title:"Family Water Safety Checklist",desc:"Home and pool habits for every family.",body:"Keep constant adult supervision near water, secure gates, and practice what to do if a swimmer needs help.",tips:["Choose a designated water watcher.","Review the checklist each season."]},
+{id:"r9",cat:CATS[1],title:"Song: Old MacDonald (Pool Version)",desc:"A classic farm song with kicks, splashes, and sounds.",body:"Sing together and let each animal choose a pool move: duck kicks, cow stretches, pig bubbles. Swimmers can also pick the next animal with a picture card.",lyrics:"Old MacDonald had a farm, E-I-E-I-O.\nAnd on his farm he had a duck, E-I-E-I-O.\nWith a quack-quack here and a quack-quack there,\nHere a quack, there a quack, everywhere a quack-quack.\nOld MacDonald had a farm, E-I-E-I-O.\n\nOld MacDonald had a farm, E-I-E-I-O.\nAnd on his farm he had a cow, E-I-E-I-O.\nWith a moo-moo here and a moo-moo there,\nHere a moo, there a moo, everywhere a moo-moo.\nOld MacDonald had a farm, E-I-E-I-O.",tips:["Nonverbal swimmers can pick animals with cards.","Match each animal to a kick or splash."]},
+{id:"r10",cat:CATS[1],title:"Song: Wheels on the Bus (Splash Version)",desc:"Original pool verses sung to the familiar tune.",body:"These verses are written for this demo to fit the well-known tune. Add actions for each line and repeat verses as often as the group likes.",lyrics:"The kickers in the pool go splash, splash, splash,\nsplash, splash, splash, splash, splash, splash.\nThe kickers in the pool go splash, splash, splash,\nall through the pool!\n\nThe arms in the pool go round and round,\nround and round, round and round.\nThe arms in the pool go round and round,\nall through the pool!\n\nThe bubbles in the pool go blub, blub, blub,\nblub, blub, blub, blub, blub, blub.\nThe bubbles in the pool go blub, blub, blub,\nall through the pool!",tips:["Slow the tempo for new swimmers.","Let swimmers invent a new verse."]},
+{id:"r11",cat:CATS[1],title:"Song: Row, Row, Row Your Boat",desc:"A gentle song for floating and rocking.",body:"Swimmers float with support while the group sings slowly. Rock side to side with the beat to build relaxation and trust.",lyrics:"Row, row, row your boat,\nGently down the stream.\nMerrily, merrily, merrily, merrily,\nLife is but a dream.",tips:["Sing softly for sensory comfort.","Pair with a back float goal."]}];
+const MSG=[
+{from:"Priya Raman",subj:"Lesson reminder",prev:"See you Thursday at 4:00 PM!",body:"Hi! Just a sample reminder that your next lesson is Thursday at 4:00 PM. Please bring a towel and goggles."},
+{from:"Daniel Okafor",subj:"New resource shared",prev:"Check out the Pool Access Basics guide.",body:"I found a helpful guide in the resource hub on pool access. Take a look when you have a moment."},
+{from:"SNAPkids Team (sample)",subj:"Welcome to Splash",prev:"Thanks for trying the prototype.",body:"Welcome! This is a demo message and no real messages are sent in this prototype."}];
+const FAQ=[
+{q:"Find resources",a:"Open Resources in the menu. Search by keyword or filter by category, then click a card for details."},
+{q:"Check lesson schedule",a:"Open Calendar in the menu to see your sample upcoming lessons. The dashboard also shows what is next."},
+{q:"Navigate Splash",a:"Use the Location buttons to pick Berkeley, Palo Alto, or Albany, then the menu on the left: Dashboard, Directory, Resources, Messages, and Calendar. Use Switch role at the top to change views."}];
+class Component extends DCLogic {
+state={role:null,view:"dash",mode:"inst",q:"",sel:null,rq:"",cat:"All",rsel:null,chat:false,m:0,loc:"Berkeley",cal:{y:2026,m:9},cs:null,log:[{cls:"bubble bot",t:"Hi! I can help with resources, lesson schedules, and finding your way around Splash."}]};
+renderVals(){
+const s=this.state,inst=s.role==="inst",v=s.view,loc=s.loc;
+const go=(k,x)=>()=>this.setState(Object.assign({view:k,sel:null,rsel:null,cs:null,q:"",rq:"",cat:"All",m:0,mode:"inst"},x||{}));
+const nav=[["dash","Dashboard"],["dir","Directory"],["res","Resources"],["msg","Messages"],["cal","Calendar"]].map(a=>({label:a[1],cls:"nav"+(v===a[0]?" on":""),go:go(a[0])}));
+const mode=inst?s.mode:"inst";
+const ql=s.q.toLowerCase();
+const people=(mode==="inst"?INST:SW).filter(p=>p.loc===loc);
+const dirItems=people.filter(p=>(p.name+p.sub+p.chips.join(" ")+p.rows.map(r=>r.v).join(" ")).toLowerCase().includes(ql)).map(p=>({...p,open:()=>this.setState({sel:p.id})}));
+const det=INST.concat(SW).find(p=>p.id===s.sel)||{rows:[]};
+const rl=s.rq.toLowerCase();
+const resItems=RES.filter(r=>(s.cat==="All"||r.cat===s.cat)&&(r.title+r.desc+r.cat).toLowerCase().includes(rl)).map(r=>({...r,open:()=>this.setState({rsel:r.id})}));
+const rd0=RES.find(r=>r.id===s.rsel)||{tips:[]};
+const rd={...rd0,hasLy:!!rd0.lyrics};
+const pills=["All"].concat(CATS).map(c=>({label:c,cls:"pill"+(s.cat===c?" on":""),pick:()=>this.setState({cat:c})}));
+const msgList=MSG.map((m,i)=>({...m,cls:"card click"+(s.m===i?" on":""),pick:()=>this.setState({m:i})}));
+const ask=(f)=>()=>this.setState({log:s.log.concat([{cls:"bubble me",t:f.q},{cls:"bubble bot",t:f.a}])});
+const locs=Object.keys(LOC).map(n=>({label:n,cls:"pill"+(loc===n?" on":""),pick:()=>this.setState({loc:n,sel:null,cs:null})}));
+const lessons=nextC(loc);
+const ins0=INST.find(p=>p.loc===loc),ws=SW.find(w=>w.loc===loc);
+const fi=INST.find(p=>p.id===ws.ins[0]);
+const nx=nextC(loc,x=>x.i===ws.sl)[0];
+const cy=s.cal.y,cm=s.cal.m;
+const first=new Date(cy,cm,1),nd=new Date(cy,cm+1,0).getDate();
+const cells=[];for(let i=0;i<first.getDay();i++)cells.push({n:"",cl:[],cls:"cell off"});
+for(let d=1;d<=nd;d++){const dt=new Date(cy,cm,d);cells.push({n:d,cls:"cell",cl:classesOn(loc,dt).map(x=>({s:x.s,pick:()=>this.setState({cs:{i:x.i,label:fmt(dt)}})}))});}
+const shift=(k)=>()=>{const d=new Date(cy,cm+k,1);this.setState({cal:{y:d.getFullYear(),m:d.getMonth()}})};
+let cdet={grp:[]};
+if(s.cs){const at=attend(loc,s.cs.i),nm=(w)=>w.ins.map(id=>INST.find(x=>x.id===id).name).join(" & ");
+cdet={title:s.cs.label+" · "+SLOTS[loc][s.cs.i].t,place:LOC[loc].addr+" · "+LOC[loc].note,n:at.length,insts:Array.from(new Set(at.flatMap(w=>w.ins))).map(id=>INST.find(x=>x.id===id).name).join(", "),
+grp:["Instructional pool","Lap pool"].map(p=>{const m=at.filter(w=>w.pool===p);return{title:p,empty:m.length===0,items:m.map(w=>({name:w.name,line:"Instructor"+(w.ins.length>1?"s: ":": ")+nm(w)+" · "+w.rows[0].v}))}})};}
+const dr=v==="dir";
+return{
+noRole:!s.role,shell:!!s.role,roleLabel:inst?"Instructor":"Swimmer & Family",
+pickInst:()=>this.setState({role:"inst",view:"dash"}),pickFam:()=>this.setState({role:"fam",view:"dash"}),
+switchRole:()=>this.setState({role:null,view:"dash",chat:false,sel:null,rsel:null,cs:null}),
+nav,locs,locInfo:LOC[loc].addr+" · "+LOC[loc].note,instDash:inst&&v==="dash",famDash:!inst&&v==="dash",
+welcome:"Welcome back, Coach "+ins0.name.split(" ")[0],welcomeSub:lessons.length+" upcoming classes at "+loc+" (sample data)",
+famHi:"Hi, "+ws.name.split(" ")[0]+" and family",famIns:{name:fi.name,sub:fi.sub+" · "+ws.pool},
+lessons,nextL:{...nx,where:ws.pool+" · "+LOC[loc].short},assigned:SW.filter(w=>w.loc===loc).map(p=>({...p,open:()=>this.setState({view:"dir",mode:"swim",sel:p.id})})),
+msgs:MSG,browseSwim:go("dir",{mode:"swim"}),toMsg:go("msg"),toRes:go("res"),toCal:go("cal"),
+viewInst:()=>this.setState({view:"dir",mode:"inst",sel:fi.id}),
+vDir:dr,dirList:dr&&!s.sel,dirDetail:dr&&!!s.sel,dirTitle:(mode==="inst"?"Instructor directory":"Swimmer directory")+" · "+loc,
+showTabs:inst,tabI:"pill"+(mode==="inst"?" on":""),tabS:"pill"+(mode==="swim"?" on":""),
+setInst:()=>this.setState({mode:"inst",q:""}),setSwim:()=>this.setState({mode:"swim",q:""}),
+q:s.q,setQ:(e)=>this.setState({q:e.target.value}),dirItems,noDir:dirItems.length===0,det,backDir:()=>this.setState({sel:null}),
+vRes:v==="res",resList:v==="res"&&!s.rsel,resDetail:v==="res"&&!!s.rsel,
+rq:s.rq,setRq:(e)=>this.setState({rq:e.target.value}),pills,resItems,noRes:resItems.length===0,rd,backRes:()=>this.setState({rsel:null}),
+vMsg:v==="msg",msgList,curMsg:MSG[s.m],vCal:v==="cal",calGrid:v==="cal"&&!s.cs,calDet:v==="cal"&&!!s.cs,
+loc,dn,cells,cdet,monthLabel:MON[cm]+" "+cy,prevM:shift(-1),nextM:shift(1),backCal:()=>this.setState({cs:null}),
+chat:s.chat,chatBtn:s.chat?"Hide helper":"Help",toggleChat:()=>this.setState({chat:!s.chat}),openChat:()=>this.setState({chat:true}),closeChat:()=>this.setState({chat:false}),
+log:s.log,faqs:FAQ.map(f=>({q:f.q,ask:ask(f)}))
+};}}
+</script>
+</body>
+</html>
