@@ -51,7 +51,8 @@ npm run dev      # local dev server on http://localhost:3000
 npm run build    # production build (run before pushing)
 npm run lint     # ESLint
 npm test         # Vitest unit tests
-npm run seed     # load sample data into Supabase (needs SUPABASE_SERVICE_ROLE_KEY)
+npm run migrate  # apply new supabase/migrations/*.sql (needs DATABASE_URL); each file runs once
+npm run seed     # load sample data into Supabase (needs SUPABASE_SERVICE_ROLE_KEY); safe to re-run
 ```
 
 ## Environment variables
