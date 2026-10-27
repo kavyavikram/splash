@@ -1,7 +1,16 @@
-import Link from "next/link";
+import { redirect } from "next/navigation";
+import { GoogleSignInButton } from "@/components/GoogleSignInButton";
 import { Logo } from "@/components/Logo";
+import { getSession } from "@/lib/session";
 
-export default function WelcomePage() {
+export default async function WelcomePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>;
+}) {
+  if (await getSession()) redirect("/dashboard");
+  const { error } = await searchParams;
+
   return (
     <div className="flex min-h-dvh items-center justify-center bg-linear-to-br from-primary to-teal p-4 sm:p-6">
       <div className="w-full max-w-[860px] rounded-[28px] bg-white px-6 py-10 text-center shadow-[0_20px_50px_rgba(5,40,80,0.25)] sm:px-8">
@@ -14,11 +23,13 @@ export default function WelcomePage() {
           Splash helps the SNAPkids community stay connected: lessons, resources, and swimmer
           support for instructors and families.
         </p>
-        {/* Milestone 3 replaces this with Google sign-in */}
-        <Link href="/dashboard" className="btn">
-          Preview the app
-        </Link>
-        <p className="muted mt-6 text-[13px]">Sign-in is coming soon. All names and data are fictional.</p>
+        {error && (
+          <p role="alert" className="mx-auto mb-5 max-w-md rounded-xl bg-red-50 px-4 py-3 text-sm text-red-800">
+            We couldn&apos;t finish signing you in. Please try again.
+          </p>
+        )}
+        <GoogleSignInButton />
+        <p className="muted mt-6 text-[13px]">Demo app: all names and data are fictional.</p>
       </div>
     </div>
   );

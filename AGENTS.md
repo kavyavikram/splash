@@ -53,7 +53,14 @@ npm run lint     # ESLint
 npm test         # Vitest unit tests
 npm run migrate  # apply new supabase/migrations/*.sql (needs DATABASE_URL); each file runs once
 npm run seed     # load sample data into Supabase (needs SUPABASE_SERVICE_ROLE_KEY); safe to re-run
+npm run dev-login -- name@example.test   # local only: prints a one-time sign-in link for a test account
 ```
+
+Don't run `npm run build` while `npm run dev` is running; they share `.next/` and the dev server breaks (fix: stop it, `rm -rf .next`, restart).
+
+## Auth flow
+
+Google sign-in → `/auth/callback` swaps the code for a session cookie → `src/middleware.ts` keeps it fresh → `(app)/layout.tsx` calls `requireRole()`, which sends signed-out visitors to `/` and users without a role to `/onboarding`. Role changes happen only in `src/app/actions/auth.ts` (service-role client, after `accessCodeMatches`). `/auth/confirm` handles email links (magic-link fallback and `dev-login`).
 
 ## Environment variables
 
