@@ -74,12 +74,20 @@ Google sign-in → `/auth/callback` swaps the code for a session cookie → `src
 
 Local values go in `.env.local` (git-ignored). Production values go in Vercel → Project → Settings → Environment Variables.
 
+## How the screens get data
+
+- `src/lib/data.ts`: every database read, all through the signed-in user's Supabase client, so RLS decides what comes back. Family-safe class info comes from the `class_pool_counts` / `class_instructor_ids` functions.
+- `src/lib/calendar.ts`: weekly class slots → dates. Dates are `"YYYY-MM-DD"` strings; "today" is computed in America/Los_Angeles.
+- `src/lib/search.ts`: shared search (every query word must match somewhere; case/accent-insensitive). Used by `SearchableCards` (directory) and `ResourceBrowser`.
+- Routes: `/dashboard`, `/calendar?month=YYYY-MM`, `/calendar/[slotId]/[date]`, `/directory?tab=swimmers`, `/directory/instructors/[id]`, `/directory/swimmers/[id]` (instructors only), `/resources`, `/resources/[id]`, `/privacy` (public, required by Google OAuth).
+- `(app)/loading.tsx`, `app/error.tsx` and `app/not-found.tsx` are the shared loading, error and 404 screens.
+
 ## Conventions
 
 - **Design tokens** live in `src/app/globals.css` (`@theme`): `primary` #0B63B8, `teal` #10A5B5, `navy` #0B2540, `muted`, `line`, `mint`, `sky`. Reusable classes: `btn`, `btn-outline`, `btn-white`, `card`, `card-link`, `chip`, `pill`/`pill-on`, `field`, `muted`, `hero`.
 - Font is DM Sans (`next/font`). Rounded cards, **44px minimum touch targets** (`min-h-11`).
 - Mobile first: families mostly use phones. Nav is a sidebar on desktop and a bottom bar on phones.
-- Accessibility: real `<button>`/`<Link>`, labeled inputs, `aria-pressed`/`aria-current` for toggles and nav. White text on gradients uses `teal-dark` (#0E8FA3), not `teal`, for contrast.
+- Accessibility: real `<button>`/`<Link>`, labeled inputs, `aria-pressed`/`aria-current` for toggles and nav, skip link to `#main`. Text must meet WCAG AA (4.5:1): white text on gradients ends at `teal-dark` (#0A7A8A, 5.0:1), never `teal`. Input borders use `field-strong` (3:1); `field` is decorative only.
 - Prefer Server Components; add `"use client"` only for interactivity.
 - The selected location lives in the `splash_location` cookie (`src/lib/current-location.ts`), so server components can filter by it.
 - Keep logic that needs tests (calendar placement, search, access rules) as pure functions in `src/lib/` with tests beside them (`*.test.ts`). Don't unit test purely visual components.

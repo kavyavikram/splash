@@ -8,7 +8,7 @@ export function AppHeader({ roleLabel }: { roleLabel: string }) {
       <Link href="/dashboard" className="flex min-h-11 items-center gap-2.5">
         <Logo size={32} variant="white" />
         <span className="text-xl font-bold">Splash</span>
-        <span className="rounded-full bg-white/20 px-3 py-1 text-[13px]">{roleLabel}</span>
+        <span className="rounded-full border border-white/70 px-3 py-0.5 text-[13px]">{roleLabel}</span>
       </Link>
       <div className="flex items-center gap-2">
         <Link href="/onboarding" className="btn-white px-4">

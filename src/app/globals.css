@@ -7,12 +7,13 @@
   --color-primary: #0b63b8;
   --color-primary-dark: #0b4f94;
   --color-teal: #10a5b5;
-  --color-teal-dark: #0e8fa3;
+  --color-teal-dark: #0a7a8a; /* white text on it: 5.0:1 (WCAG AA) */
   --color-navy: #0b2540;
   --color-muted: #4a6178;
   --color-line: #dce9f2;
   --color-line-soft: #eaf2f8;
-  --color-field: #b9d3e6;
+  --color-field: #b9d3e6; /* decorative borders (pills) */
+  --color-field-strong: #7393ae; /* input borders: 3.2:1 on white (WCAG 1.4.11) */
   --color-sky: #e3f1fb;
   --color-mint: #e3f4f7;
   --color-mint-ink: #0a5a6b;
@@ -52,7 +53,7 @@ body {
     @apply border-primary bg-primary text-white hover:border-primary;
   }
   .field {
-    @apply min-h-11 w-full rounded-xl border-[1.5px] border-field px-4 py-3 focus-visible:border-primary focus-visible:outline-2 focus-visible:outline-primary;
+    @apply min-h-11 w-full rounded-xl border-[1.5px] border-field-strong px-4 py-3 focus-visible:border-primary focus-visible:outline-2 focus-visible:outline-primary;
   }
   .muted {
     @apply text-sm text-muted;

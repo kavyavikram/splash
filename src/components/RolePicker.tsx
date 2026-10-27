@@ -125,7 +125,7 @@ function FamilyForm({ swimmers, onBack }: { swimmers: SwimmerChoice[]; onBack: (
                 {here.map((s) => (
                   <label
                     key={s.id}
-                    className="flex min-h-11 cursor-pointer items-center gap-3 rounded-xl border-[1.5px] border-field px-4 py-2.5 has-checked:border-primary has-checked:bg-sky"
+                    className="flex min-h-11 cursor-pointer items-center gap-3 rounded-xl border-[1.5px] border-field-strong px-4 py-2.5 has-checked:border-primary has-checked:bg-sky"
                   >
                     <input type="radio" name="swimmer_id" value={s.id} required className="size-5 accent-primary" />
                     <span className="font-medium">{s.display_name}</span>
